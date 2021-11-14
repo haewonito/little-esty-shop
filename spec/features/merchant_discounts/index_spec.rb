@@ -84,9 +84,26 @@ RSpec.describe "Merchants Discount Index", type: :feature do
       expect(page).to_not have_content("Discount #{@discount1.id}")
     end
 
+#discount US2 - not dynamic. will have to change if using later
     it "I can see the name and date of the next 3 upcoming US holidays" do
+
+      require 'webmock/rspec'
+      WebMock.disable_net_connect!(allow_localhost: true)
+      WebMock.allow_net_connect!
+
+      stub_request(:get, "https://date.nager.at/NextPublicHolidays/US").
+         with(
+           headers: {
+       	  'Accept'=>'*/*',
+       	  'Accept-Encoding'=>'gzip;q=1.0,deflate;q=0.6,identity;q=0.3',
+       	  'User-Agent'=>'Faraday v1.8.0'
+           }).
+         to_return(status: 200, body: "", headers: {})
+
       expect(page).to have_content("Upcoming Holidays")
-      save_and_open_page
+      expect(page).to have_content("Thanksgiving Day: 2021-11-25")
+      expect(page).to have_content("Christmas Day: 2021-12-24")
+      expect(page).to have_content("New Year's Day: 2021-12-31")
     end
 #     As a merchant
 # When I visit the discounts index page

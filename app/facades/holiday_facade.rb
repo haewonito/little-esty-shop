@@ -1,11 +1,9 @@
 class HolidayFacade
-  def holidays
-    service.holidays_us.map do |data|
-      NagerHoliday.new(data)
-    end
-  end
+  def self.holidays
+    holidays = NagerService.call_api("/api/v2/NextPublicHolidays/US")
 
-  def service
-    NagerService.new
+    holidays.map do |holiday|
+      NagerHoliday.new(holiday)
+    end
   end
 end

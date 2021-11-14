@@ -13,7 +13,7 @@
 
 <h1>Upcoming Holidays:</h1>
 
-<% @facades.holidays.each do |holiday| %>
+<% @holidays.first(3).each do |holiday| %>
   <%= holiday.name %><br>
   <%= holiday.date %><br><br>
 <% end %>
