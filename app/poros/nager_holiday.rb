@@ -5,7 +5,7 @@ class NagerHoliday
               :name
 
   def initialize(data)
-    @date = data[:date]
-    @name = data[:name]
+    @date = data["date"]
+    @name = data["name"]
   end
 end

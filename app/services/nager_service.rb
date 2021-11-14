@@ -1,9 +1,9 @@
 class NagerService
-  def holidays_us
+  def self.holidays_us
     get_url("/NextPublicHolidays/US")
   end
 
-  def get_url(url)
+  def self.get_url(url)
     response = Faraday.get("https://date.nager.at/api/v2#{url}")
     parsed = JSON.parse(response.body, symbolize_names: true)
   end
