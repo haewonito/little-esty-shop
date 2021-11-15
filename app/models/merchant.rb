@@ -60,15 +60,6 @@ class Merchant < ApplicationRecord
       .distinct
   end
 
-  def total_discount_revenue
-
-     a = 12500
-#     discounts.joins(items: [invoice_items: [:invoice]])
-#     .group("invoices.id")
-#     .where("discounts.threshhold_quantity <= invoice_items.quantity")
-#     .where("discounts.discount_percentage")
-
-  end
 
   def items_ready_to_ship
     Item.joins(:merchant, invoice_items: [:invoice])

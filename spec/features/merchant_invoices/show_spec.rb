@@ -64,7 +64,7 @@ RSpec.describe "merchant's invoice show page", type: :feature do
     it "I can see total revenue and discounted revenue" do
 
       expect(page).to have_content("Total Revenue: $151.00")
-      # expect(page).to have_content("Total Discount Revenue: $125.00")
+      expect(page).to have_content("Total Discount Revenue: $125.00")
     end
 #they are all from invoice_1
 #discount1 was applied for invoice_item3
