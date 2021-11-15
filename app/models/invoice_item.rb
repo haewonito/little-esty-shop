@@ -9,11 +9,10 @@ class InvoiceItem < ApplicationRecord
   end
 
   def find_discounts_applied
-    joins(item: [merchant: [:discounts]])
-    .where("discounts.threshhold_quantity <= invoice_items.quantity")
-    .group("invoice_items.id")
+    Item.joins(merchant: [:discounts])
+    .select("discounts.id as discount_id")
+    .where("discounts.threshhold_quantity <= ?", quantity)
     .order("discounts.discount_percentage")
     .last
   end
-  
 end
