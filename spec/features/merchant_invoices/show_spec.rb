@@ -62,7 +62,6 @@ RSpec.describe "merchant's invoice show page", type: :feature do
     end
 #discount US7
     it "I can see total revenue and discounted revenue" do
-
       expect(page).to have_content("Total Revenue: $151.00")
       expect(page).to have_content("Total Discount Revenue: $125.00")
     end
@@ -71,10 +70,12 @@ RSpec.describe "merchant's invoice show page", type: :feature do
 #discount2 was applied for invoice_item4
 
 #us8
-    xit "I can see a link to the show page for the bulk discount that was applied" do
-      expect(page).to have_content("Discounts Applied:")
-      click_on "Discount #{@discount1.id}"
-      expect(current_path).to eq("/merchants/#{@merchant.id}/discounts/#{@discount.id}")
+    it "I can see a link to the show page for the bulk discount that was applied" do
+      within "#discount-applied" do
+        expect(page).to have_content("Discount(s) Applied:")
+        click_on "Discount #{@discount1.id}"
+        expect(current_path).to eq("/merchants/#{@merchant.id}/discounts/#{@discount.id}")
+      end
     end
   end
 end

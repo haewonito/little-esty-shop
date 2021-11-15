@@ -15,4 +15,6 @@ class InvoiceItem < ApplicationRecord
     .order("discounts.discount_percentage")
     .last
   end
+
+  
 end
