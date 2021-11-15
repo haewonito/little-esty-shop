@@ -33,4 +33,5 @@ class Invoice < ApplicationRecord
     total_including_discount = total_revenue - discount
 
   end
+
 end
