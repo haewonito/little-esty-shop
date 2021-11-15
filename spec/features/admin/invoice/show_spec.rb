@@ -65,4 +65,26 @@ RSpec.describe 'Admin Invoice Show page' do
       expect(page).to have_content @customer.last_name
     end
   end
+  # @customer = Customer.create!(first_name: 'Bob', last_name: 'Dylan')
+  # @merchant = Merchant.create!(name: 'Jen')
+  # @invoice = Invoice.create!(customer_id: @customer.id, status: 'completed')
+  # @item1 = Item.create!(name: 'Pumpkin', description: 'Orange', unit_price: 3, merchant_id: @merchant.id)
+  # @item2 = Item.create!(name: 'Pillow', description: 'Soft', unit_price: 20, merchant_id: @merchant.id)
+  # @invoice_item1 = InvoiceItem.create!(item_id: @item1.id, invoice_id: @invoice.id, quantity: 10, unit_price: 30, status: 'shipped')
+  # @invoice_item2 = InvoiceItem.create!(item_id: @item2.id, invoice_id: @invoice.id, quantity: 2, unit_price: 40, status: 'shipped')
+  #
+  # visit admin_invoices_show_path(@invoice.id)
+  describe "bulk discount US9" do
+    it "I see total revenue and discount revenue for that invoice" do
+      discount1 = @merchant.discounts.create!(threshhold_quantity: 10, discount_percentage: 20)
+      discount2 = @merchant.discounts.create!(threshhold_quantity: 15, discount_percentage: 30)
+      visit admin_invoices_show_path(@invoice.id)
+# discount1 applies to invoice_item1.  So invoice_item1 gets 20% discount
+# total avenue without discount = $3.80
+# total avenue with discount = $3.20
+      expect(page).to have_content("Total Revenue: $3.80")
+      expect(page).to have_content("Total Discount Revenue: $3.20")
+
+    end
+  end
 end

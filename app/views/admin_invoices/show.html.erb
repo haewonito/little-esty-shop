@@ -32,3 +32,6 @@ Created on: <%= @invoice.created_at.strftime("%A, %B %-d, %Y") %>
 <% end %>
 
 <h3>Total revenue expected: <%= InvoiceItem.total_revenue(@invoice) %>
+
+<h3>Total Revenue: <%= number_to_currency(@invoice.total_revenue / 100.0) %></h3>
+<h3>Total Discount Revenue: <%= number_to_currency(@invoice.total_discount_revenue / 100.0) %></h3>
