@@ -11,7 +11,7 @@ RSpec.describe NagerService do
     allow_any_instance_of(Faraday::Connection).to receive(:get).and_return(Faraday::Response.new)
     allow_any_instance_of(Faraday::Response).to receive(:body).and_return(mock_response)
 
-    json = NagerService.holidays_us
+    json = NagerService.call_api("/api/v2/NextPublicHolidays/US")
 
     expect(json).to be_an Array
     expect(json[0]).to have_key :date
