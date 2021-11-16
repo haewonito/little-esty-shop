@@ -13,8 +13,6 @@
   </div>
 <% end %>
 
-<h3>Total Revenue: <%= number_to_currency(@invoice.total_revenue / 100.0) %></h3>
-
 <h1>This is MerchantInvoice Show Page</h1>
 
 <h3>Invoice ID: <%= @invoice.id %> </h3><br>
@@ -23,3 +21,17 @@
 
 <h3>Customer: <%= @customer.first_name %> <%= @customer.last_name %></h3>
 
+
+<h3>Total Revenue: <%= number_to_currency(@invoice.total_revenue / 100.0) %></h3>
+<h3>Total Discount Revenue: <%= number_to_currency(@invoice.total_discount_revenue / 100.0) %></h3>
+
+<div id="discount-applied">
+  <h3>Discount(s) Applied:</h3>
+
+  <% @invoice.invoice_items.each do |invoice_item| %>
+    <p> <% if invoice_item.find_discounts_applied != nil %>
+      <%= link_to "Discount #{invoice_item.find_discounts_applied.discount_id}", "/merchants/#{@merchant.id}/discounts/#{invoice_item.find_discounts_applied.discount_id}" %>
+        <% end %>
+    </p>
+  <% end %>
+</div>

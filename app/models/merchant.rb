@@ -60,6 +60,7 @@ class Merchant < ApplicationRecord
       .distinct
   end
 
+
   def items_ready_to_ship
     Item.joins(:merchant, invoice_items: [:invoice])
       .where.not(invoice_items: {status: "shipped"})
