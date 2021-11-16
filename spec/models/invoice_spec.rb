@@ -37,4 +37,29 @@ RSpec.describe Invoice, type: :model do
       expect(invoice2.total_revenue).to eq(32)
     end
   end
+
+  describe '#total_discount_revenue' do
+    it 'can return total_discount_revenue' do
+      merchant = Merchant.create(name: "Bob's Burger")
+
+      item_1 = merchant.items.create(name: 'Burger', description: 'its on a string', unit_price: 1000)
+      item_2 = merchant.items.create(name: 'Shake', description: 'dried grape', unit_price: 100)
+
+      customer = Customer.create(first_name: 'Teddy', last_name: 'Lastname')
+
+      invoice_1 = customer.invoices.create(status: 2)
+      invoice_2 = customer.invoices.create(status: 2)
+
+      invoice_item_1 = invoice_1.invoice_items.create(item_id: item_1.id, quantity: 3, unit_price: 1000, status: 1)
+      invoice_item_2 = invoice_1.invoice_items.create(item_id: item_2.id, quantity: 1, unit_price: 100, status: 1)
+      invoice_item_3 = invoice_1.invoice_items.create(item_id: item_1.id, quantity: 10, unit_price: 1000, status: 1)
+      invoice_item_4 = invoice_1.invoice_items.create(item_id: item_2.id, quantity: 20, unit_price: 100, status: 1)
+
+      discount1 = merchant.discounts.create!(threshhold_quantity: 10, discount_percentage: 20)
+      discount3 = merchant.discounts.create!(threshhold_quantity: 8, discount_percentage: 30)
+
+
+      expect(invoice_1.total_discount_revenue).to eq(11500)
+    end
+  end
 end
