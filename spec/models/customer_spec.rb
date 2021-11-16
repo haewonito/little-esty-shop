@@ -10,6 +10,7 @@ RSpec.describe Customer, type: :model do
       customer1 = Customer.create!(first_name: "Bob", last_name: "Dylan")
       customer2 = Customer.create!(first_name: "Micha", last_name: "B")
       customer3 = Customer.create!(first_name: "Christian", last_name: "V")
+
       invoice1 = Invoice.create!(customer_id: customer1.id, status: 'completed')
       invoice2 = Invoice.create!(customer_id: customer1.id, status: 'completed')
       invoice3 = Invoice.create!(customer_id: customer1.id, status: 'completed')
@@ -17,6 +18,7 @@ RSpec.describe Customer, type: :model do
       invoice5 = Invoice.create!(customer_id: customer2.id, status: 'completed')
       invoice6 = Invoice.create!(customer_id: customer3.id, status: 'completed')
       invoice7 = Invoice.create!(customer_id: customer3.id, status: 'completed')
+
       transaction1 = Transaction.create!(invoice_id: invoice1.id, credit_card_number: 123, credit_card_expiration_date: nil, result: 'success')
       transaction2 = Transaction.create!(invoice_id: invoice2.id, credit_card_number: 123, credit_card_expiration_date: nil, result: 'success')
       transaction3 = Transaction.create!(invoice_id: invoice3.id, credit_card_number: 123, credit_card_expiration_date: nil, result: 'success')
@@ -34,7 +36,6 @@ RSpec.describe Customer, type: :model do
     it 'should return the customer associated with the invoice' do
       customer1 = Customer.create!(first_name: "Bob", last_name: "Dylan")
       invoice1 = Invoice.create!(customer_id: customer1.id, status: 'completed')
-
       expect(Customer.find_by_invoice_id(invoice1.id)).to eq(customer1)
     end
   end

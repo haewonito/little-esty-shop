@@ -20,7 +20,6 @@ RSpec.describe InvoiceItem do
     end
   end
 
-#make less gross.
   describe 'instance methods' do
     it "find_discounts_applied" do
       customer = Customer.create!(first_name: 'Bob', last_name: 'Dylan')
@@ -38,16 +37,6 @@ RSpec.describe InvoiceItem do
 
       expect(invoice_item1.find_discounts_applied.discount_id).to eq(discount1.id)
       expect(invoice_item2.find_discounts_applied).to be_nil
-
-      # item1 = Item.create!(name: 'Pumpkin', description: 'Orange', unit_price: 3, merchant_id: merchant.id)
-      # item2 = Item.create!(name: 'Pillow', description: 'Soft', unit_price: 20, merchant_id: merchant.id)
-      # invoice_item1 = InvoiceItem.create!(item_id: item1.id, invoice_id: invoice.id, quantity: 10, unit_price: 30, status: 'shipped')
-      # invoice_item2 = InvoiceItem.create!(item_id: item2.id, invoice_id: invoice.id, quantity: 20, unit_price: 40, status: 'shipped')
-      #
-      # discount1 = merchant.discounts.create!(threshhold_quantity: 10, discount_percentage: 20)
-      # discount2 = merchant.discounts.create!(threshhold_quantity: 8, discount_percentage: 15)
-      # discount3 = merchant.discounts.create!(threshhold_quantity: 5, discount_percentage: 10)
-
     end
   end
 end
