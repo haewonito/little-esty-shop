@@ -29,12 +29,15 @@ class MerchantDiscountsController < ApplicationController
   def update
     merchant = Merchant.find(params[:merchant_id])
     discount = Discount.find(params[:discount_id])
-    discount.update(discount_percentage: params[:discount_percentage], threshhold_quantity: params[:threshhold_quantity])
 
-    redirect_to "/merchants/#{merchant.id}/discounts/#{discount.id}"
-    # if item.save
-    #   flash[:success] = 'Item updated successfully :)'
-    # end
+    if discount.params_percent_too_big_or_small(params[:discount_percentage])
+      redirect_to "/merchants/#{merchant.id}/discounts/#{discount.id}/edit"
+      flash[:too_big] = "Discount percent cannot be less than 0 or more than hundred. Try again"
+    else
+      discount.update(discount_percentage: params[:discount_percentage], threshhold_quantity: params[:threshhold_quantity])
+      redirect_to "/merchants/#{merchant.id}/discounts/#{discount.id}"
+      flash[:update_success] = 'Discount updated successfully'
+    end
   end
 
   def destroy
