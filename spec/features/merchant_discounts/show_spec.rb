@@ -43,21 +43,5 @@ RSpec.describe "merchant discount show page", type: :feature do
       expect(current_path).to eq("/merchants/#{@merchant.id}/discounts/#{@discount1.id}/edit")
       expect(page).to have_content("Discount percent cannot be less than 0 or more than hundred. Try again")
     end
-
-    xit "flashes error message if either input is not an integer" do
-      click_on "Edit This Discount"
-
-      fill_in "Discount percentage", with: "string1"
-      fill_in "Threshhold quantity", with: "40"
-      click_on "Update Discount"
-      expect(current_path).to eq("/merchants/#{@merchant.id}/discounts/#{@discount1.id}/edit")
-      expect(page).to have_content("Discount percent cannot be less than 0 or more than hundred. Try again")
-
-      fill_in "Discount percentage", with: "50"
-      fill_in "Threshhold quantity", with: "string2"
-      click_on "Update Discount"
-      expect(current_path).to eq("/merchants/#{@merchant.id}/discounts/#{@discount1.id}/edit")
-      expect(page).to have_content("Discount percent cannot be less than 0 or more than hundred. Try again")
-    end
   end
 end

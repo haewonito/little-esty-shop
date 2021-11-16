@@ -14,8 +14,8 @@ RSpec.describe Discount, type: :model do
     end
 
     it "#params_integer" do
-      a = 3958
-      b = 9486
+      a = 38
+      b = 94
       expect(@discount.params_integer(a, b)).to be true
 
       c = "string"
